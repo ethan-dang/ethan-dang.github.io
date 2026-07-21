@@ -1,0 +1,14 @@
+{
+  "name": "ethan-dang-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal one-page website for Ethan Dang",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "serve": "npx http-server . -p 8080 -c-1"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}
