@@ -1,0 +1,8 @@
+# js/ is compiled output of src/ts/**/*.ts — not hand-written source.
+# Excluded from GitHub's language stats so they reflect actual authored code.
+js/* linguist-generated=true
+
+# Lockfiles are machine-generated; GitHub excludes these by default, marked
+# explicitly here for clarity.
+package-lock.json linguist-generated=true
+server/package-lock.json linguist-generated=true

@@ -14,7 +14,7 @@ export const profile: Profile = {
   name: "Ethan Dang",
   headline: "IT Consultant | AI & Automation Enthusiast | AI Agents for Enterprise Automation",
   location: "Belconnen, Australian Capital Territory, Australia",
-  email: "nguyen180904@gmail.com",
+  email: "ethandang2223@gmail.com",
   linkedin: "https://www.linkedin.com/in/hcnd/",
   about:
     "I'm focused on how AI can be practically applied to solve internal business challenges: streamlining workflows, accelerating delivery, and reducing operational overhead. My interest lies in AI solutions that embed directly into teams' day-to-day tools and processes, especially where compliance and efficiency matter. At AIQuinta, I support organisations exploring internal AI Agents to unblock projects faster and surface ROI sooner. I'm particularly drawn to use cases where AI isn't just a buzzword - but a working part of the business.",
@@ -141,6 +141,18 @@ export interface ExtracurricularItem {
   description?: string;
 }
 
-// Intentionally empty — add entries here (club leadership, volunteering,
-// community involvement, etc.) and they'll render automatically.
-export const extracurricular: ExtracurricularItem[] = [];
+export const extracurricular: ExtracurricularItem[] = [
+  {
+    title: "President",
+    org: "UC Vietnamese Student Society",
+    period: "Nov 2022 – Nov 2023",
+    description:
+      "Organised a calendar of student events and built relationships with students, community groups and embassy representatives. Engaged and assisted new students to adapt to university life in Canberra.",
+  },
+  {
+    title: "Volunteer",
+    org: "Vietnam Centre",
+    period: "Feb 2022 – Mar 2022",
+    description: "Supported visitors during the \"Happy New Tet\" pop-up exhibition on Vietnamese heritage.",
+  },
+];
