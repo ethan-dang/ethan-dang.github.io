@@ -14,12 +14,19 @@ calls it over HTTPS.
 ```bash
 cd server
 npm install
-cp .env.example .env   # then fill in SMTP credentials
+cp .env.example .env   # then fill in your Resend API key
 npm run dev             # runs on http://localhost:3000
 ```
 
-Without SMTP credentials set, `/api/contact` responds with `503` and logs the submission instead of
+Without `RESEND_API_KEY` set, `/api/contact` responds with `503` and logs the submission instead of
 failing silently — useful for local testing without real email.
+
+Email delivery goes through [Resend](https://resend.com)'s HTTP API rather than SMTP. Many hosts (Render's
+free tier included) block outbound SMTP ports (25/465/587) to prevent abuse, which makes Gmail/SMTP
+unreachable regardless of credentials — HTTPS-based email APIs sidestep that entirely. Sign up for a free
+Resend account and create an API key; no domain verification is needed since the default
+`onboarding@resend.com` sender can deliver to your own account email (i.e. `CONTACT_TO_EMAIL`), which is
+exactly this form's use case.
 
 ## Deploying
 
@@ -28,8 +35,7 @@ failing silently — useful for local testing without real email.
    - `PORT` (most hosts set this automatically)
    - `ALLOWED_ORIGINS` — include `https://ethan-dang.github.io`
    - `CONTACT_TO_EMAIL`
-   - `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`
-     - For Gmail, create an [App Password](https://myaccount.google.com/apppasswords) — don't use your real password.
+   - `RESEND_API_KEY` (and optionally `RESEND_FROM_EMAIL` once you've verified a custom domain on Resend)
 3. Build and start commands: `npm run build` then `npm start`.
 4. Once deployed, update `CONTACT_API_URL` in [`src/ts/main.ts`](../src/ts/main.ts) at the project root to
    your API's public URL (e.g. `https://your-api.onrender.com/api/contact`), then rebuild the frontend

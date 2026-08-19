@@ -1,6 +1,5 @@
 import express, { type Request, type Response, type NextFunction } from "express";
 import cors from "cors";
-import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -8,6 +7,8 @@ dotenv.config();
 const PORT = Number(process.env.PORT) || 3000;
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || "").split(",").map((o) => o.trim()).filter(Boolean);
 const CONTACT_TO_EMAIL = process.env.CONTACT_TO_EMAIL;
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL || "Website Contact Form <onboarding@resend.com>";
 
 const app = express();
 
@@ -54,19 +55,6 @@ function isContactPayload(body: unknown): body is ContactPayload {
   );
 }
 
-let transporter: nodemailer.Transporter | null = null;
-if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
-  transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT) || 587,
-    secure: process.env.SMTP_SECURE === "true",
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
-}
-
 app.get("/api/health", (_req: Request, res: Response) => {
   res.json({ status: "ok" });
 });
@@ -83,20 +71,32 @@ app.post("/api/contact", async (req: Request, res: Response) => {
 
   const { name, email, message } = req.body as ContactPayload;
 
-  if (!transporter || !CONTACT_TO_EMAIL) {
-    console.warn("Contact form submitted but SMTP is not configured:", { name, email });
+  if (!RESEND_API_KEY || !CONTACT_TO_EMAIL) {
+    console.warn("Contact form submitted but the email API is not configured:", { name, email });
     return res.status(503).json({ error: "Contact form is not configured yet. Please email directly." });
   }
 
   try {
-    await transporter.sendMail({
-      from: `"Website Contact Form" <${process.env.SMTP_USER}>`,
-      to: CONTACT_TO_EMAIL,
-      replyTo: email,
-      subject: `New message from ${name} via ethan-dang.github.io`,
-      text: message,
-      html: `<p><strong>From:</strong> ${escapeHtml(name)} (${escapeHtml(email)})</p><p>${escapeHtml(message).replace(/\n/g, "<br/>")}</p>`,
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: RESEND_FROM_EMAIL,
+        to: CONTACT_TO_EMAIL,
+        reply_to: email,
+        subject: `New message from ${name} via ethan-dang.github.io`,
+        text: message,
+        html: `<p><strong>From:</strong> ${escapeHtml(name)} (${escapeHtml(email)})</p><p>${escapeHtml(message).replace(/\n/g, "<br/>")}</p>`,
+      }),
     });
+
+    if (!response.ok) {
+      throw new Error(`Resend API responded with ${response.status}: ${await response.text()}`);
+    }
+
     res.json({ status: "sent" });
   } catch (err) {
     console.error("Failed to send contact email:", err);
