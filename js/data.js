@@ -2,11 +2,14 @@
 // Edit this file to update what's rendered on the page.
 export const profile = {
     name: "Ethan Dang",
-    headline: "IT Consultant | AI & Automation Enthusiast | AI Agents for Enterprise Automation",
+    headlineTags: ["IT Consultant", "AI & Automation Enthusiast", "AI Agents for Enterprise Automation"],
     location: "Belconnen, Australian Capital Territory, Australia",
     email: "ethandang2223@gmail.com",
     linkedin: "https://www.linkedin.com/in/hcnd/",
-    about: "I'm focused on how AI can be practically applied to solve internal business challenges: streamlining workflows, accelerating delivery, and reducing operational overhead. My interest lies in AI solutions that embed directly into teams' day-to-day tools and processes, especially where compliance and efficiency matter. At AIQuinta, I support organisations exploring internal AI Agents to unblock projects faster and surface ROI sooner. I'm particularly drawn to use cases where AI isn't just a buzzword - but a working part of the business.",
+    about: [
+        "I'm focused on how AI can be practically applied to solve internal business challenges — streamlining workflows, accelerating delivery, and reducing operational overhead.",
+        "My interest lies in AI solutions that embed directly into teams' day-to-day tools and processes, especially where compliance and efficiency matter. At AIQuinta, I support organisations exploring internal AI Agents to unblock projects faster and surface ROI sooner — cases where AI isn't just a buzzword, but a working part of the business.",
+    ],
 };
 export const experience = [
     {

@@ -13,6 +13,8 @@
   --radius: 16px;
   --header-h: 72px;
   --max-width: 1080px;
+  --font-body: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  --font-heading: "Sora", "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
   color-scheme: light;
 }
 
@@ -45,13 +47,18 @@
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
-  font-family: "Segoe UI", system-ui, -apple-system, "Inter", Roboto, sans-serif;
+  font-family: var(--font-body);
   background: var(--bg);
   color: var(--text);
   transition: background-color 0.3s ease, color 0.3s ease;
-  line-height: 1.6;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
 }
 h1, h2, h3, p, ul, figure { margin: 0; }
+h1, h2, h3, .brand {
+  font-family: var(--font-heading);
+  letter-spacing: -0.01em;
+}
 ul { padding: 0; list-style: none; }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
@@ -148,6 +155,14 @@ button { font: inherit; cursor: pointer; }
 }
 .icon-btn:hover { transform: translateY(-2px); border-color: var(--accent-1); }
 
+.theme-icon.icon-sun { display: none; }
+:root[data-theme="dark"] .theme-icon.icon-moon { display: none; }
+:root[data-theme="dark"] .theme-icon.icon-sun { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-icon.icon-moon { display: none; }
+  :root:not([data-theme="light"]) .theme-icon.icon-sun { display: block; }
+}
+
 .nav-toggle { display: none; }
 .burger,
 .burger::before,
@@ -231,10 +246,26 @@ button { font: inherit; cursor: pointer; }
   margin-bottom: 16px;
 }
 .hero-headline {
-  max-width: 620px;
-  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  max-width: 640px;
+  margin-bottom: 24px;
+}
+.headline-chip {
+  font-size: clamp(0.9rem, 1.6vw, 1rem);
+  font-weight: 500;
   color: var(--text-muted);
-  margin-bottom: 20px;
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+}
+.headline-chip:first-child {
+  color: var(--text);
+  font-weight: 600;
+  border-color: color-mix(in srgb, var(--accent-1) 40%, var(--border));
 }
 .hero-meta {
   display: flex;
@@ -244,8 +275,12 @@ button { font: inherit; cursor: pointer; }
   font-size: 0.95rem;
   margin-bottom: 32px;
 }
-.hero-meta li::before { content: "📍"; margin-right: 6px; }
-.hero-meta li:last-child::before { content: "✉️"; }
+.hero-meta li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-meta svg { flex-shrink: 0; opacity: 0.75; }
 .hero-meta a:hover { color: var(--accent-1); }
 .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
 
@@ -302,9 +337,22 @@ button { font: inherit; cursor: pointer; }
   margin: 48px 0 20px;
 }
 .about-text {
-  max-width: 760px;
-  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 680px;
+}
+.about-text p {
+  font-size: 1.05rem;
+  line-height: 1.75;
   color: var(--text-muted);
+}
+.about-text p.lead {
+  font-size: 1.35rem;
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
 }
 
 /* ---------- Timeline (experience / education / extracurricular) ---------- */
@@ -348,10 +396,17 @@ button { font: inherit; cursor: pointer; }
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .timeline-card:hover { transform: translateY(-4px); }
-.timeline-role { font-size: 1.1rem; font-weight: 700; }
-.timeline-org { color: var(--accent-1); font-weight: 600; margin-top: 2px; }
-.timeline-meta { color: var(--text-muted); font-size: 0.85rem; margin-top: 6px; }
-.timeline-desc { margin-top: 12px; color: var(--text-muted); font-size: 0.95rem; }
+.timeline-role { font-size: 1.15rem; font-weight: 700; line-height: 1.4; }
+.timeline-org { color: var(--accent-1); font-weight: 600; font-size: 0.95rem; margin-top: 4px; }
+.timeline-meta {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+.timeline-desc { margin-top: 14px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; }
 .timeline-skills {
   display: flex;
   flex-wrap: wrap;

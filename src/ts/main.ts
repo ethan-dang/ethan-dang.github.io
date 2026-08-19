@@ -11,9 +11,7 @@ import {
   type ExtracurricularItem,
 } from "./data.js";
 
-// Update this once the backend (server/) is deployed, e.g. "https://your-api.onrender.com/api/contact".
-// Left relative so it works automatically if the API is ever served from the same origin as the site.
-const CONTACT_API_URL = "/api/contact";
+const CONTACT_API_URL = "https://ethan-dang-github-io.onrender.com/api/contact";
 
 const $ = <T extends Element = HTMLElement>(selector: string): T | null => document.querySelector<T>(selector);
 const $all = <T extends Element = HTMLElement>(selector: string): T[] => Array.from(document.querySelectorAll<T>(selector));
@@ -41,13 +39,21 @@ function renderProfile(): void {
   const contactLinkedinEl = $<HTMLAnchorElement>("#contact-linkedin");
 
   if (nameEl) nameEl.textContent = profile.name;
-  if (headlineEl) headlineEl.textContent = profile.headline;
+  if (headlineEl) {
+    profile.headlineTags.forEach((tag) => {
+      headlineEl.appendChild(el("li", "headline-chip", tag));
+    });
+  }
   if (locationEl) locationEl.textContent = profile.location;
   if (emailEl) {
     emailEl.textContent = profile.email;
     emailEl.href = `mailto:${profile.email}`;
   }
-  if (aboutEl) aboutEl.textContent = profile.about;
+  if (aboutEl) {
+    profile.about.forEach((paragraph, i) => {
+      aboutEl.appendChild(el("p", i === 0 ? "lead" : undefined, paragraph));
+    });
+  }
   if (contactEmailEl) {
     contactEmailEl.textContent = profile.email;
     contactEmailEl.href = `mailto:${profile.email}`;
@@ -55,7 +61,7 @@ function renderProfile(): void {
   if (contactLocationEl) contactLocationEl.textContent = profile.location;
   if (contactLinkedinEl) contactLinkedinEl.href = profile.linkedin;
 
-  document.title = `${profile.name} — ${profile.headline.split("|")[0].trim()}`;
+  document.title = `${profile.name} — ${profile.headlineTags[0]}`;
 }
 
 /* ---------- Timeline renderers ---------- */
@@ -155,27 +161,17 @@ function renderSkills(): void {
 function initTheme(): void {
   const root = document.documentElement;
   const toggle = $<HTMLButtonElement>("#theme-toggle");
-  const icon = toggle?.querySelector(".theme-icon");
 
   const stored = localStorage.getItem("theme");
   if (stored === "dark" || stored === "light") {
     root.setAttribute("data-theme", stored);
   }
 
-  const syncIcon = () => {
-    const isDark =
-      root.getAttribute("data-theme") === "dark" ||
-      (!root.getAttribute("data-theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
-    if (icon) icon.textContent = isDark ? "☀️" : "🌙";
-  };
-  syncIcon();
-
   toggle?.addEventListener("click", () => {
     const current = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
     const next = current === "dark" ? "light" : "dark";
     root.setAttribute("data-theme", next);
     localStorage.setItem("theme", next);
-    syncIcon();
   });
 }
 

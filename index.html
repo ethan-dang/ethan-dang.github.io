@@ -7,6 +7,9 @@
   <meta name="description" content="Ethan Dang — IT Consultant and AI &amp; Automation enthusiast based in Canberra, Australia." />
   <meta name="theme-color" content="#0f172a" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
@@ -29,7 +32,8 @@
 
       <div class="header-actions">
         <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle dark mode">
-          <span class="theme-icon" aria-hidden="true">🌙</span>
+          <svg class="theme-icon icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+          <svg class="theme-icon icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
         </button>
         <button id="nav-toggle" class="icon-btn nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav">
           <span class="burger"></span>
@@ -49,11 +53,17 @@
       <div class="container hero-inner">
         <p class="eyebrow reveal">Hello, I'm</p>
         <h1 class="hero-name reveal" id="hero-name">Ethan Dang</h1>
-        <p class="hero-headline reveal" id="hero-headline"></p>
+        <ul class="hero-headline reveal" id="hero-headline"></ul>
 
         <ul class="hero-meta reveal" id="hero-meta">
-          <li id="hero-location"></li>
-          <li><a id="hero-email" href="#"></a></li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span id="hero-location"></span>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+            <a id="hero-email" href="#"></a>
+          </li>
         </ul>
 
         <div class="hero-cta reveal">
@@ -70,7 +80,7 @@
     <section id="about" class="section">
       <div class="container">
         <h2 class="section-title reveal"><span class="section-index">01</span> About</h2>
-        <p class="about-text reveal" id="about-text"></p>
+        <div class="about-text reveal" id="about-text"></div>
       </div>
     </section>
 
