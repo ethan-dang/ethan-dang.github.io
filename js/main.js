@@ -1,5 +1,6 @@
 import { profile, experience, education, certifications, skills, languages, extracurricular, } from "./data.js";
-const CONTACT_API_URL = "https://ethan-dang-github-io.onrender.com/api/contact";
+import { formatPeriod } from "./period.js";
+const CONTACT_API_URL = "https://ethan-danggithubio-production.up.railway.app/api/contact";
 const $ = (selector) => document.querySelector(selector);
 const $all = (selector) => Array.from(document.querySelectorAll(selector));
 function el(tag, className, text) {
@@ -72,7 +73,7 @@ function renderExperience() {
     if (!container)
         return;
     experience.forEach((item) => {
-        renderTimelineItem(container, item.role, item.org, item.period, item.location, item.description, item.skills);
+        renderTimelineItem(container, item.role, item.org, formatPeriod(item.start, item.end), item.location, item.description, item.skills);
     });
 }
 function renderEducation() {

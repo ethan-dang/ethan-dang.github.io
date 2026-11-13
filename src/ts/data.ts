@@ -25,7 +25,10 @@ export const profile: Profile = {
 export interface ExperienceItem {
   role: string;
   org: string;
-  period: string;
+  /** "YYYY-MM" */
+  start: string;
+  /** "YYYY-MM" — omit while the role is ongoing; duration then updates automatically. */
+  end?: string;
   location?: string;
   description?: string;
   skills?: string[];
@@ -35,12 +38,12 @@ export const experience: ExperienceItem[] = [
   {
     role: "Business Development Executive",
     org: "AIQuinta",
-    period: "Jan 2026 – Present · 7 mos",
+    start: "2026-01",
   },
   {
     role: "IT Consultant",
-    org: "New Ocean IS Co., Ltd.",
-    period: "Mar 2025 – Present · 1 yr 5 mos",
+    org: "NEW OCEAN INFORMATION SYSTEM (AUST) PTY LTD",
+    start: "2025-03",
     description:
       "Lead the intersection of technology, business development, and client engagement, driving digital transformation projects and strategic partnerships across Australia. Manage end-to-end delivery of IT solutions — from client discovery to system design, development coordination, and implementation — bridging the gap between technology and business needs.",
     skills: ["IT Consulting", "Business Analysis", "Wireframing", "Business Partner Support"],
@@ -48,14 +51,15 @@ export const experience: ExperienceItem[] = [
   {
     role: "Electrical Salesperson",
     org: "Harvey Norman",
-    period: "Nov 2023 – Present · 2 yrs 9 mos",
+    start: "2023-11",
     location: "Belconnen, ACT, Australia · On-site",
     skills: ["Customer Service", "Retail Sales"],
   },
   {
     role: "Web Development Intern",
     org: "Self Plus Plus",
-    period: "Dec 2024 – Apr 2025 · 5 mos",
+    start: "2024-12",
+    end: "2025-04",
     location: "Canberra, ACT, Australia · Hybrid",
     description:
       "Implemented front-end features and improved UI/UX using React.js, Next.js, and Tailwind CSS. Enhanced website functionality and optimized layouts, collaborated with cross-functional teams, used Git in an Agile environment, and debugged/optimized front-end code for performance and accessibility.",
@@ -64,7 +68,8 @@ export const experience: ExperienceItem[] = [
   {
     role: "Kitchen Hand",
     org: "What The Pho",
-    period: "Mar 2022 – Sep 2023 · 1 yr 7 mos",
+    start: "2022-03",
+    end: "2023-09",
     location: "Canberra, ACT, Australia · On-site",
     skills: ["Customer Service", "Kitchen Management"],
   },

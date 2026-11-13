@@ -10,8 +10,9 @@ import {
   type EducationItem,
   type ExtracurricularItem,
 } from "./data.js";
+import { formatPeriod } from "./period.js";
 
-const CONTACT_API_URL = "https://ethan-dang-github-io.onrender.com/api/contact";
+const CONTACT_API_URL = "https://ethan-danggithubio-production.up.railway.app/api/contact";
 
 const $ = <T extends Element = HTMLElement>(selector: string): T | null => document.querySelector<T>(selector);
 const $all = <T extends Element = HTMLElement>(selector: string): T[] => Array.from(document.querySelectorAll<T>(selector));
@@ -93,7 +94,7 @@ function renderExperience(): void {
   const container = $("#experience-list");
   if (!container) return;
   experience.forEach((item: ExperienceItem) => {
-    renderTimelineItem(container, item.role, item.org, item.period, item.location, item.description, item.skills);
+    renderTimelineItem(container, item.role, item.org, formatPeriod(item.start, item.end), item.location, item.description, item.skills);
   });
 }
 
