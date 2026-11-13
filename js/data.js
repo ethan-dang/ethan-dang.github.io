@@ -19,7 +19,7 @@ export const experience = [
     },
     {
         role: "IT Consultant",
-        org: "NEW OCEAN INFORMATION SYSTEM (AUST) PTY LTD",
+        org: "New Ocean Information System (AUST)",
         start: "2025-03",
         description: "Lead the intersection of technology, business development, and client engagement, driving digital transformation projects and strategic partnerships across Australia. Manage end-to-end delivery of IT solutions — from client discovery to system design, development coordination, and implementation — bridging the gap between technology and business needs.",
         skills: ["IT Consulting", "Business Analysis", "Wireframing", "Business Partner Support"],
